@@ -1,0 +1,61 @@
+#start game
+def play():
+	alphabet_string = string.ascii_lowercase
+	word = get_word()
+	letters_guessed = []
+	tries = 6
+	guessed = False
+
+	print('The word contains', len(word), 'letters.')
+	print(len(word) * '_')
+	while guessed == False and tries > 0:
+		print('You have ' + str(tries) + ' tries')
+		guess = input('Please enter one letter or the full word.').lower()
+#1 - letter input.
+		if len(guess) == 1:
+			if guess not in alphabet_string:
+				print("You have not entered a letter")
+			elif guess in letters_guessed:
+				print("You have already guessed that letter!")
+			elif guess not in word:
+				print("Oh dear, that letter is not in the word!")
+				letters_guessed.append(guess)
+				tries -=1
+			elif guess in word:
+				print("Good job, you guessed correctly!")
+				letters_guessed.append(guess)
+			else:
+				print("Error!")
+#2 - full word input.
+		elif len(guess) == len(word):
+			if guess == word:
+				print("You have guessed the word!")
+				guessed = True
+			else:
+				print("Sorry that is not the correct word!")
+				tries -=1
+#3 total number of letters do not == the letters in the word.
+		else:
+			print("Sorry that guess is incorrect!")
+#Status of game
+		status = ""
+		if guessed == False:
+		    for letter in word:
+		        if letter in letters_guessed:
+		            status += letter
+		        else:
+		            status += "_"
+		    print(status)
+
+		if status == word:
+		    print('Well done, you have guessed the word!')
+		    guessed = True
+		elif tries == 0:
+		    print("You have run out of guesses!")
+
+	#play_again() #replay
+	play_again()
+
+
+play() # run function everytime script runs.
+
